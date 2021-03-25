@@ -19,5 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
+    Route::post('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+});
 
-Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
