@@ -32,4 +32,9 @@ Route::post('/login', function(Request $request){ // good
     return $userController->index($request);
 });
 
+Route::post('/registration', function (Request $request){
+    $userController = new UserController();
+    return $userController->register($request);
+});
+
 
