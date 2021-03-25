@@ -15,13 +15,14 @@ use App\Http\Controllers\UserController;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
 
+});
+
+Route::get('/jobs', function (){
+    $jobsController = new \App\Http\Controllers\Jobs();
+    return $jobsController->fetchJobs();
 });
 
 //Route::post('login',[UserController::class,'index']); // good
