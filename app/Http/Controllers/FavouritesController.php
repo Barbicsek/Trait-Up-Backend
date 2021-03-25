@@ -26,8 +26,7 @@ class FavouritesController extends Controller
                 ['user_id' => $userId, 'job_id' => $jobId,
                  'title' => $title, 'company' => $company,
                  'type' => $type, 'company_logo' => $companyLogo,
-                    'location' => $location, 'created_at' => $createdAt
-                 ]
+                 'location' => $location, 'created_at' => $createdAt]
             );
             return response()->json(['Job successfully added to favourites!'], Response::HTTP_CREATED);
         } catch (\Exception $e) {
