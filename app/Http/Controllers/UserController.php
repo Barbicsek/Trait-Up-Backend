@@ -13,11 +13,18 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
      */
-    function index(Request $request): \Illuminate\Http\Response
+    function index(Request $request)
     {
-        print_r($request->data);
+        try{
+            $validation = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required']);
+        }
+        catch (\Exception $exception){
+            return response()->json("error", Response::HTTP_BAD_REQUEST);
+        }
+
         $user= User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
@@ -41,11 +48,23 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
-        //
+        try{
+            $validation = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required']);
+        }
+        catch (\Exception $exception){
+            return response()->json("error", Response::HTTP_BAD_REQUEST);
+        }
+
+        User::firstOrCreate([ "name" => $request->get('name'), "email" => $request->get('email'), "password" => Hash::make( $request->get('password'))]);
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'User created successfully'
+        ]);
     }
 
     /**
