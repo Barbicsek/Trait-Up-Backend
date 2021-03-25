@@ -22,7 +22,7 @@ class FavouritesController extends Controller
             $location = $request->query->get('location');
             $title = $request->query->get('title');
             $companyLogo = $request->query->get('company_logo');
-            $userId = 1;
+            $userId = auth()->user()->id;
             Favourite::create(
                 ['user_id' => $userId, 'job_id' => $jobId,
                     'title' => $title, 'company' => $company,
