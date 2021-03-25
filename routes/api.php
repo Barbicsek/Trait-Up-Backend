@@ -27,6 +27,13 @@ Route::post('/login', function(Request $request){ // good
     return $userController->index($request);
 });
 
+//Route::post('login', [UserController::class, 'index'])->name('auth.login');
+
+Route::post('/registration', function (Request $request){
+    $userController = new UserController();
+    return $userController->register($request);
+});
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
     Route::post('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
