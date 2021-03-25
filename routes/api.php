@@ -24,4 +24,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 });
 
-Route::post("login",[UserController::class,'index']);
+//Route::post('login',[UserController::class,'index']); // good
+
+Route::post('/login', function(Request $request){ // good
+    $userController = new UserController();
+    return $userController->index($request);
+});
+
+

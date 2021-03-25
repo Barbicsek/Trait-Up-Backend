@@ -17,12 +17,12 @@ class UserController extends Controller
      */
     function index(Request $request): \Illuminate\Http\Response
     {
+        print_r($request->data);
         $user= User::where('email', $request->email)->first();
-        // print_r($data);
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => ['These credentials do not match our records.']
-            ], 404);
+            ], Response::HTTP_NOT_FOUND);
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;
@@ -32,10 +32,9 @@ class UserController extends Controller
             'token' => $token
         ];
 
-        return response($response, Response::HTTP_CREATED);
 //        return response()->json($error, Response::HTTP_BAD_REQUEST);
-//        return response()->json($response, Response::HTTP_CREATED);
 
+        return response($response, Response::HTTP_CREATED);
     }
 
     /**
@@ -82,4 +81,5 @@ class UserController extends Controller
     {
         //
     }
+
 }
