@@ -3,6 +3,7 @@
 use App\Http\Controllers\FavouritesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::get('/jobs', function (){
+    $jobsController = new \App\Http\Controllers\Jobs();
+    return $jobsController->fetchJobs();
+});
+
+Route::post('/login', function(Request $request){ // good
+    $userController = new UserController();
+    return $userController->index($request);
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
