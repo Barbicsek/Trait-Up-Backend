@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,12 @@ Route::get('/jobs', function (){
     $jobsController = new \App\Http\Controllers\Jobs();
     return $jobsController->fetchJobs();
 });
+
+//Route::post('login',[UserController::class,'index']); // good
+
+Route::post('/login', function(Request $request){ // good
+    $userController = new UserController();
+    return $userController->index($request);
+});
+
+
