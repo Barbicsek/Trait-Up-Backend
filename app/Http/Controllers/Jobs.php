@@ -34,7 +34,10 @@ class Jobs extends Controller
     }
 
     function getJobDescriptionById(Request $request) {
+        $fc = new FavouritesController;
         $id = $request->id;
+        $userId = $request->user_id;
+        $isFavourite = $fc->isFavouriteOfUser($id, $userId);
         $curl = curl_init();
         $url = "https://jobs.github.com/positions/" . $request->get('id') . ".json";
 
@@ -47,7 +50,8 @@ class Jobs extends Controller
 
 
         return response()->json([
-            'job' => $response
+            'job' => $response,
+            'isFav' => $isFavourite
         ]);
 
 //        if ($e = curl_error($curl))

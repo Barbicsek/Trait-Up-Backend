@@ -74,4 +74,20 @@ class FavouritesController extends Controller
             return response()->json($e, Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function isFavouriteOfUser($id, $userId)
+    {
+        try {
+            $job = Favourite::where('job_id', '=', $id)
+                ->where( 'user_id', '=', $userId)
+                ->first();
+            if ($job === null) {
+                return false;
+            }
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
 }
