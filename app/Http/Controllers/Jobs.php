@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 class Jobs extends Controller
 {
     //
-    function fetchJobs() {
-
+    function fetchJobs(Request $request) {
         $curl = curl_init();
-        $url = "https://jobs.github.com/positions.json";
+        $url = "https://jobs.github.com/positions.json?page=". $request->get('page');
 
         curl_setopt_array($curl, [
                 CURLOPT_RETURNTRANSFER => 1,

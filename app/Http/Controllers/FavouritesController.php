@@ -29,7 +29,10 @@ class FavouritesController extends Controller
                     'type' => $type, 'company_logo' => $companyLogo,
                     'location' => $location, 'created_at' => $createdAt]
             );
-            return response()->json(['Job successfully added to favourites!'], Response::HTTP_CREATED);
+            return response()->json([
+                'message' =>'Job successfully added to favourites!',
+                'jobId' => $jobId],
+                Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e, Response::HTTP_BAD_REQUEST);
@@ -51,6 +54,24 @@ class FavouritesController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['something went wrong'], 400);
+        }
+    }
+
+    public function removeFromFavourites(Request $request)
+    {
+        try {
+            $jobId = $request->query->get('id');
+            $userId = auth()->user()->id;
+            Favourite::where('user_id', '=', $userId)
+                    ->where( 'job_id', '=', $jobId)
+            ->delete();
+            return response()->json([
+                'message' =>'Job successfully removed to favourites!',
+                'jobId' => $jobId],
+                Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e, Response::HTTP_BAD_REQUEST);
         }
     }
 }
