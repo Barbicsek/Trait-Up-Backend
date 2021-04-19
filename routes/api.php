@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/jobs', [Jobs::class, 'fetchJobs']);
+Route::get('/getJobDescriptionById', [Jobs::class, 'getJobDescriptionById']);
 
 Route::post('/login', function(Request $request){ // good
     $userController = new UserController();

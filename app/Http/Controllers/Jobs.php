@@ -32,4 +32,31 @@ class Jobs extends Controller
 //        }
 
     }
+
+    function getJobDescriptionById(Request $request) {
+        $id = $request->id;
+        $curl = curl_init();
+        $url = "https://jobs.github.com/positions/" . $request->get('id') . ".json";
+
+        curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $url
+        ]);
+
+        $response = curl_exec($curl);
+
+
+        return response()->json([
+            'job' => $response
+        ]);
+
+//        if ($e = curl_error($curl))
+//        {
+//            echo $e;
+//        }else {
+//            $decoded = json_decode($resp);
+//            print_r($decoded);
+//        }
+
+    }
 }
