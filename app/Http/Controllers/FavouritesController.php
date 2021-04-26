@@ -15,7 +15,7 @@ class FavouritesController extends Controller
     public function addToFavourites(Request $request): JsonResponse
     {
         try {
-            $jobId = $request->query->get('id');
+            $jobId = $request->query->get('job_id');
             $type = $request->query->get('type');
             $createdAt = $request->query->get('created_at');
             $company = $request->query->get('company');
@@ -43,12 +43,12 @@ class FavouritesController extends Controller
     {
         try {
             $userId = auth()->user()->id;
-            $mail = DB::table('favourites')
+            $jobs = DB::table('favourites')
                 ->where('user_id', '=', $userId)
                 ->select(array('job_id', 'title', 'company', 'type',
                     'company_logo', 'location', 'created_at'))->get();
             return response()->json([
-                'mail' => $mail,
+                'jobs' => $jobs,
                 'id' => $userId,
             ], 200);
         } catch (\Exception $e) {
