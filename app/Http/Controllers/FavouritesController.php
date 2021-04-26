@@ -15,7 +15,7 @@ class FavouritesController extends Controller
     public function addToFavourites(Request $request): JsonResponse
     {
         try {
-            $jobId = $request->query->get('id');
+            $jobId = $request->query->get('job_id');
             $type = $request->query->get('type');
             $createdAt = $request->query->get('created_at');
             $company = $request->query->get('company');
@@ -29,7 +29,10 @@ class FavouritesController extends Controller
                     'type' => $type, 'company_logo' => $companyLogo,
                     'location' => $location, 'created_at' => $createdAt]
             );
-            return response()->json(['Job successfully added to favourites!'], Response::HTTP_CREATED);
+            return response()->json([
+                'message' =>'Job successfully added to favourites!',
+                'jobId' => $jobId],
+                Response::HTTP_CREATED);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e, Response::HTTP_BAD_REQUEST);
@@ -40,17 +43,51 @@ class FavouritesController extends Controller
     {
         try {
             $userId = auth()->user()->id;
-            $mail = DB::table('favourites')
+            $jobs = DB::table('favourites')
                 ->where('user_id', '=', $userId)
                 ->select(array('job_id', 'title', 'company', 'type',
                     'company_logo', 'location', 'created_at'))->get();
             return response()->json([
-                'mail' => $mail,
+                'jobs' => $jobs,
                 'id' => $userId,
             ], 200);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['something went wrong'], 400);
+        }
+    }
+
+    public function removeFromFavourites(Request $request)
+    {
+        try {
+            $jobId = $request->query->get('id');
+            $userId = auth()->user()->id;
+            Favourite::where('user_id', '=', $userId)
+                    ->where( 'job_id', '=', $jobId)
+            ->delete();
+            return response()->json([
+                'message' =>'Job successfully removed to favourites!',
+                'jobId' => $jobId],
+                Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function isFavouriteOfUser($id, $userId)
+    {
+        try {
+            $job = Favourite::where('job_id', '=', $id)
+                ->where( 'user_id', '=', $userId)
+                ->first();
+            if ($job === null) {
+                return false;
+            }
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e, Response::HTTP_BAD_REQUEST);
         }
     }
 }

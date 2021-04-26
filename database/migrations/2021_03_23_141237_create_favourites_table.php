@@ -21,7 +21,7 @@ class CreateFavouritesTable extends Migration
             $table->string('title');
             $table->string('company');
             $table->string('type');
-            $table->string('company_logo');
+            $table->string('company_logo')->nullable();
             $table->string('location');
             $table->string('created_at');
         });

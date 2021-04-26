@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FavouritesController;
+use App\Http\Controllers\Jobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -17,10 +18,8 @@ use App\Http\Controllers\UserController;
 */
 
 
-Route::get('/jobs', function (){
-    $jobsController = new \App\Http\Controllers\Jobs();
-    return $jobsController->fetchJobs();
-});
+Route::get('/jobs', [Jobs::class, 'fetchJobs']);
+Route::get('/getJobDescriptionById', [Jobs::class, 'getJobDescriptionById']);
 
 Route::post('/login', function(Request $request){ // good
     $userController = new UserController();
@@ -36,6 +35,7 @@ Route::post('/registration', function (Request $request){
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
-    Route::post('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+    Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
+    Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
 });
 
