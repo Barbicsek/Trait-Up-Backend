@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -100,4 +101,19 @@ class UserController extends Controller
         //
     }
 
+    public function getUser(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function updateUserInfo(Request $request)
+    {
+        $user = get_object_vars(json_decode($request->query->get('userState')));
+        DB::table('users')
+            ->where('id', $user['id'])
+            ->update(['name' => $user['name'], 'email' => $user['email'],
+                      'phone number' => $user['phone number'],
+                        'address' => $user['address']]);
+        return User::find($user['id']);
+    }
 }

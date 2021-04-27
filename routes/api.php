@@ -37,5 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
     Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
     Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+    Route::get('getUser', [UserController::class, 'getUser']);
+    Route::put('updateUserInfo', [UserController::class, 'updateUserInfo']);
 });
 
