@@ -13,6 +13,7 @@ class Application extends Model
     use HasFactory;
     protected $table = "application";
     protected $fillable = [
-        'user_id', 'job_id', 'type', 'created_at', 'company', 'location', 'title', 'description'
+        'user_id', 'job_id', 'type', 'created_at', 'company', 'location', 'title', 'description', 'company_logo'
     ];
+    public $timestamps = false;
 }
