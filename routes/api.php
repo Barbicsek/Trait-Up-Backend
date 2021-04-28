@@ -39,6 +39,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
     Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
     Route::post('applyForJob', [\App\Http\Controllers\ApplicationController::class, 'applyForJob']);
-
+    Route::get('readUsersApplications', [\App\Http\Controllers\ApplicationController::class, 'readUsersApplications']);
 });
 
