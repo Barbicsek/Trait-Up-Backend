@@ -18,9 +18,12 @@ class ApplicationController extends Controller
             $title = $request->get("title");
             $type = $request->get("type");
             $location= $request->get("location");
+            $created_at= $request->get("created_at");
+            $companyLogo = $request->get('company_logo');
             Application::firstOrCreate([ "user_id" => $userId,  "job_id" => $jobId,
                 "type" => $type, "company" => $company, "title" => $title,
-                "location" => $location
+                "location" => $location, "created_at" => $created_at,
+                "company_logo" => $companyLogo
                  ]);
             return response()->json([
                 'status_code' => 200,
