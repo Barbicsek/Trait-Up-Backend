@@ -40,5 +40,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
     Route::post('applyForJob', [\App\Http\Controllers\ApplicationController::class, 'applyForJob']);
     Route::get('readUsersApplications', [\App\Http\Controllers\ApplicationController::class, 'readUsersApplications']);
+    Route::get('getUserDatasById', [UserController::class, 'getUserDatasById']);
 });
 
