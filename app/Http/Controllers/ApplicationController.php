@@ -12,7 +12,16 @@ class ApplicationController extends Controller
     {
         try{
             $userId = auth()->user()->id;
-            Application::insert([  "user_id" => $userId,  "job_id" => $request->get('jobId'), "type" => $request->get("type"), "company" => $request->get('company'), "description" => $request->get('description')]);
+            $jobId = $request->get('jobId');
+            $company = $request->get('company');
+            $title = $request->get("title");
+            $type = $request->get("type");
+            $created_at = $request->get("created_at");
+            $location= $request->get("location");
+            Application::firstOrCreate([ "user_id" => $userId,  "job_id" => $jobId,
+                "type" => $type, "company" => $company, "title" => $title,
+                "location" => $location
+                 ]);
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Save application'
