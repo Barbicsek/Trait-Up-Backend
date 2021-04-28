@@ -22,7 +22,9 @@ class CreateApplicationTable extends Migration
             $table->string('company');
             $table->string('title');
             $table->string('location');
-            $table->timestamps();
+            $table->string('created_at');
+            $table->string('company_logo');
+
         });
     }
 
