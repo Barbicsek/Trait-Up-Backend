@@ -21,7 +21,7 @@ class CreateApplicationTable extends Migration
             $table->string('type');
             $table->string('company');
             $table->string('title');
-            $table->string('description');
+            $table->string('location');
             $table->timestamps();
         });
     }
