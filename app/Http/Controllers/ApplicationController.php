@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ApplicationController extends Controller
@@ -37,9 +38,8 @@ class ApplicationController extends Controller
     {
         try {
             $userId = auth()->user()->id;
-            $applications = Application::
-                 join('users', 'application.user_id', '=', 'users.id')
-                ->where('user_id', $userId)
+            $applications = DB::table('application')
+                ->where('user_id','=', $userId)
                 ->select('application.*')
                 ->get();
 
