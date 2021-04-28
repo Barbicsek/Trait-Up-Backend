@@ -16,7 +16,6 @@ class ApplicationController extends Controller
             $company = $request->get('company');
             $title = $request->get("title");
             $type = $request->get("type");
-            $created_at = $request->get("created_at");
             $location= $request->get("location");
             Application::firstOrCreate([ "user_id" => $userId,  "job_id" => $jobId,
                 "type" => $type, "company" => $company, "title" => $title,
@@ -32,5 +31,24 @@ class ApplicationController extends Controller
             return response()->json(['message' => 'something went wrong'], 400);
         }
 
+    }
+
+    function readUsersApplications()
+    {
+        try {
+            $userId = auth()->user()->id;
+            $applications = Application::
+                 join('users', 'application.user_id', '=', 'users.id')
+                ->where('user_id', $userId)
+                ->select('application.*')
+                ->get();
+
+            return response()->json([
+                'application' => $applications
+            ], 200);
+        }catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'something went wrong'], 400);
+        }
     }
 }
