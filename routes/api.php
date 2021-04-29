@@ -44,5 +44,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addEducation', [StudyController::class, 'addEducation']);
     Route::post('deleteStudy', [StudyController::class, 'deleteStudy']);
     Route::put('updateEducation', [StudyController::class, 'updateEducation']);
+    Route::post('applyForJob', [\App\Http\Controllers\ApplicationController::class, 'applyForJob']);
+    Route::get('readUsersApplications', [\App\Http\Controllers\ApplicationController::class, 'readUsersApplications']);
+    Route::get('getUserDatasById', [UserController::class, 'getUserDatasById']);
 });
 
