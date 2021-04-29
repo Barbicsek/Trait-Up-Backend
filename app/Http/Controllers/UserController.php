@@ -141,9 +141,9 @@ class UserController extends Controller
         DB::table('users')
             ->where('id', $user['id'])
             ->update(['name' => $user['name'], 'email' => $user['email'],
-                      'phone number' => $user['phone number'],
+                      'phone_number' => $user['phone_number'],
                         'address' => $user['address'],
-                        'birth date' => $user['birth date']]);
+                        'birth_date' => $user['birth_date']]);
         return User::find($user['id']);
     }
 }
