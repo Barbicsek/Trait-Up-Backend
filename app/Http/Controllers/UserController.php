@@ -120,4 +120,30 @@ class UserController extends Controller
         //
     }
 
+    public function getUser(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function getUserEducation(Request $request)
+    {
+        $id = $request->user()->id;
+        return DB::table('studies')
+            ->join('users', 'studies.user_id', '=', 'users.id')
+            ->where('users.id', '=', $request->user()->id)
+            ->select('studies.*')
+            ->get();
+    }
+
+    public function updateUserInfo(Request $request)
+    {
+        $user = get_object_vars(json_decode($request->query->get('userState')));
+        DB::table('users')
+            ->where('id', $user['id'])
+            ->update(['name' => $user['name'], 'email' => $user['email'],
+                      'phone number' => $user['phone number'],
+                        'address' => $user['address'],
+                        'birth date' => $user['birth date']]);
+        return User::find($user['id']);
+    }
 }

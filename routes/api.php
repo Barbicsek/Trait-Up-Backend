@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FavouritesController;
 use App\Http\Controllers\Jobs;
+use App\Http\Controllers\StudyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/jobs', [Jobs::class, 'fetchJobs']);
-
 Route::get('/getJobDescriptionById', [Jobs::class, 'getJobDescriptionById']);
 
 Route::post('/login', function(Request $request){ // good
@@ -38,6 +38,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
     Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
     Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+    Route::get('getUser', [UserController::class, 'getUser']);
+    Route::get('getUserEducation', [UserController::class, 'getUserEducation']);
+    Route::put('updateUserInfo', [UserController::class, 'updateUserInfo']);
+    Route::post('addEducation', [StudyController::class, 'addEducation']);
+    Route::post('deleteStudy', [StudyController::class, 'deleteStudy']);
+    Route::put('updateEducation', [StudyController::class, 'updateEducation']);
     Route::post('applyForJob', [\App\Http\Controllers\ApplicationController::class, 'applyForJob']);
     Route::get('readUsersApplications', [\App\Http\Controllers\ApplicationController::class, 'readUsersApplications']);
     Route::get('getUserDatasById', [UserController::class, 'getUserDatasById']);
