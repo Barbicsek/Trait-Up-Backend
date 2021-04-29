@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -65,6 +67,24 @@ class UserController extends Controller
             'message' => 'User created successfully'
         ]);
     }
+
+    function getUserDatasById()
+    {
+        try {
+            $userId = auth()->user()->id;
+            $personalData = DB::table("users")
+                ->where('id', "=", $userId)
+                ->select('users.*')
+                ->get();
+            return response()->json([
+                'personalData' => $personalData,
+            ], 200);
+        }catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'something went wrong'], 400);
+        }
+    }
+
 
     /**
      * Display the specified resource.

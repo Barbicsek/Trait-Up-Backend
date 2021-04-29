@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/jobs', [Jobs::class, 'fetchJobs']);
+
 Route::get('/getJobDescriptionById', [Jobs::class, 'getJobDescriptionById']);
 
 Route::post('/login', function(Request $request){ // good
@@ -37,5 +38,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
     Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
     Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+    Route::post('applyForJob', [\App\Http\Controllers\ApplicationController::class, 'applyForJob']);
+    Route::get('readUsersApplications', [\App\Http\Controllers\ApplicationController::class, 'readUsersApplications']);
+    Route::get('getUserDatasById', [UserController::class, 'getUserDatasById']);
 });
 
