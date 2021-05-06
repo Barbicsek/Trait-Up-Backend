@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\FavouritesController;
-use App\Http\Controllers\Jobs;
+use App\Http\Controllers\FavouriteController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\StudyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +19,8 @@ use App\Http\Controllers\UserController;
 */
 
 
-Route::get('/jobs', [Jobs::class, 'fetchJobs']);
-Route::get('/getJobDescriptionById', [Jobs::class, 'getJobDescriptionById']);
+Route::get('/jobs', [JobController::class, 'fetchJobs']);
+Route::get('/getJobById', [JobController::class, 'getJobById']);
 
 Route::post('/login', function(Request $request){ // good
     $userController = new UserController();
@@ -35,9 +35,9 @@ Route::post('/registration', function (Request $request){
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::post('addToFavourites', [FavouritesController::class, 'addToFavourites']);
-    Route::post('removeFromFavourites', [FavouritesController::class, 'removeFromFavourites']);
-    Route::get('getFavouritesOfUser', [FavouritesController::class, 'getFavouritesOfUser']);
+    Route::post('addToFavourites', [FavouriteController::class, 'addToFavourites']);
+    Route::post('removeFromFavourites', [FavouriteController::class, 'removeFromFavourites']);
+    Route::get('getFavouritesOfUser', [FavouriteController::class, 'getFavouritesOfUser']);
     Route::get('getUser', [UserController::class, 'getUser']);
     Route::get('getUserEducation', [UserController::class, 'getUserEducation']);
     Route::put('updateUserInfo', [UserController::class, 'updateUserInfo']);
