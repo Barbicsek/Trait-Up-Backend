@@ -33,7 +33,7 @@ class UserController extends Controller
                 'message' => ['These credentials do not match our records.']
             ], Response::HTTP_NOT_FOUND);
         }
-        $favController = new FavouritesController;
+        $favController = new FavouriteController;
         $token = $user->createToken('my-app-token')->plainTextToken;
         $response = [
             'user' => $user,

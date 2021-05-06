@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
-class FavouritesController extends Controller
+class FavouriteController extends Controller
 {
     public function addToFavourites(Request $request): JsonResponse
     {
         try {
-            $jobId = $request->query->get('job_id');
+            $jobId = $request->query->get('id');
             $type = $request->query->get('type');
             $createdAt = $request->query->get('created_at');
             $company = $request->query->get('company');

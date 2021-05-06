@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Jobs extends Controller
+class JobController extends Controller
 {
     //
     function fetchJobs(Request $request) {
@@ -33,8 +33,8 @@ class Jobs extends Controller
 
     }
 
-    function getJobDescriptionById(Request $request) {
-        $fc = new FavouritesController;
+    function getJobById(Request $request) {
+        $fc = new FavouriteController;
         $id = $request->id;
         $userId = $request->user_id;
         $isFavourite = $fc->isFavouriteOfUser($id, $userId);
